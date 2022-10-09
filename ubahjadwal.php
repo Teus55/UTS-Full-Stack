@@ -1,3 +1,12 @@
+<?php 
+if (isset($_GET['nrp'])) {
+    $nrp = $_GET['nrp'];
+} else {
+    $nrp = null;
+}
+require_once('class/mahasiswa.php');
+$objMahasiswa = new mahasiswa();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +19,13 @@
 
 <body>
     <form method="post">
-        <p><label for="">Mahasiswa : 160344232 - Sahara Devaca<?php ?></label>
+        <p><label for=""> Mahasiswa : 
+            <?php                 
+            $res = $objMahasiswa->getMahasiswa();
+            $row = $res->fetch_assoc();
+            echo $row['nrp']." - ".$row['nama'];
+            ?>
+        </label>
             
         </p>
         <table border="1" style="min-width: 500px; max-width: 1000px;">
