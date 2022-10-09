@@ -27,7 +27,7 @@ class Jadwal extends orangtua
     }
 
     public function insertJadwal($nrp, $jadwal, $hari){
-        $sql = "INSERT FROM jadwal(nrp,idhari,idjam_kuliah) VALUES (?,?,?) ";
+        $sql = "INSERT INTO jadwal(nrp, idhari, idjam_kuliah) VALUES (?, ?, ?) ";
         $stmt = $this->mysqli->prepare($sql);
         $stmt->bind_param("iii", $nrp,$hari,$jadwal);
         $stmt->execute();
