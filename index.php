@@ -94,7 +94,7 @@ if (isset($_POST['btnsubmit'])) {
     <script type="text/javascript">
         $("#btnmahasiswa").click(function() {
             var nrp = $('#selMahasiswa').val();
-            $("#link").attr("href","ubahjadwal.php?get="+ nrp);
+            $("#link").attr("href","ubahjadwal.php?nrp="+ nrp);
             $("#btnubah").removeAttr("disabled");
         });
     </script>
