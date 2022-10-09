@@ -19,6 +19,7 @@ if (isset($_POST['btnsubmit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <title>Document</title>
 </head>
 
@@ -26,7 +27,7 @@ if (isset($_POST['btnsubmit'])) {
     <form method="post">
         <p><label for="">Mahasiswa : </label>
             <select id="selMahasiswa" name="selMahasiswa">
-                <option value="">--Pilih Mahasiswa--</option>
+                <option>--Pilih Mahasiswa--</option>
                 <?php
                 $res = $objMahasiswa->getMahasiswa();
                 while ($row = $res->fetch_assoc()) {
@@ -38,9 +39,10 @@ if (isset($_POST['btnsubmit'])) {
                 }
                 ?>
             </select>
-            <input type="submit" name="btnsubmit" value="Pilih Mahasiswa">
+            <input type="submit" name="btnsubmit" value="Cek Jadwal" id="btnsubmit">
         </p>
     </form>
+    <p><button id='btnmahasiswa'>Pilih Mahasiswa</button></p>
     <table border="1" style="min-width: 500px; max-width: 1000px;">
         <th>jam</th>
         <th>Minggu</th>
@@ -68,7 +70,7 @@ if (isset($_POST['btnsubmit'])) {
         $res2 = $objJadwal->getJadwal($nrp);
         $res3 = $objJamkuliah->getJam();
         while ($row = $res2->fetch_assoc()) {
-            $arr[$row['idjam_kuliah']-1][$row['idhari']-1] = true;
+            $arr[$row['idjam_kuliah'] - 1][$row['idhari'] - 1] = true;
         }
         $i = 0;
         while ($row2 = $res3->fetch_assoc()) {
@@ -87,9 +89,15 @@ if (isset($_POST['btnsubmit'])) {
         ?>
     </table><br>
     <?php
-    echo "<a href='ubahjadwal.php?nrp=$nrp'><button>Ubah Jadwal</button></a>";
+    echo "<a id='link'><button id='btnubah' disabled>Ubah Jadwal</button></a>";
     ?>
-
+    <script type="text/javascript">
+        $("#btnmahasiswa").click(function() {
+            var nrp = $('#selMahasiswa').val();
+            $("#link").attr("href","ubahjadwal.php?get="+ nrp);
+            $("#btnubah").removeAttr("disabled");
+        });
+    </script>
 </body>
 
 </html>
