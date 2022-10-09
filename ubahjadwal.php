@@ -22,7 +22,7 @@ $objMahasiswa = new mahasiswa();
 </head>
 
 <body>
-    <form method="post">
+    <form method="post" action="ubahjadwal_proses.php">
         <p><label for=""> Mahasiswa : 
             <?php                 
             $res = $objMahasiswa->getMahasiswa($nrp);
@@ -76,10 +76,11 @@ $objMahasiswa = new mahasiswa();
             $i++;
         }
         ?>
-        </table>
+        </table><br>
+        <input type="submit" name="btnsimpan" value="simpan">
     </form><br>
     <form method="post" action="index.php">
-        <input type="submit" name="btnsimpan" value="simpan">
+        <input type="submit" name="btnkembali" value="kembali">
     </form>
 </body>
 
