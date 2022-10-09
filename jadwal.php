@@ -17,4 +17,20 @@ class Jadwal extends orangtua
         $res = $stmt->get_result();
         return $res;
     }
+
+    public function deleteData($nrp)
+    {
+        $sql = "DELETE FROM jadwal where nrp=?";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("i", $nrp);
+        $stmt->execute();
+    }
+
+    public function insertJadwal($nrp, $jadwal, $hari){
+        $sql = "INSERT FROM jadwal(nrp,idhari,idjam_kuliah) VALUES (?,?,?) ";
+        $stmt = $this->mysqli->prepare($sql);
+        $stmt->bind_param("iii", $nrp,$hari,$jadwal);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
 }
