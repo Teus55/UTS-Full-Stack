@@ -87,7 +87,7 @@ if (isset($_POST['btnsubmit'])) {
         ?>
     </table><br>
     <?php
-    echo "<a href='inputjadwal.php?nrp=$nrp'><button>Ubah Jadwal</button></a>";
+    echo "<a href='ubahjadwal.php?nrp=$nrp'><button>Ubah Jadwal</button></a>";
     ?>
 
 </body>
