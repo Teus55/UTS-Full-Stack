@@ -5,6 +5,10 @@ if (isset($_GET['nrp'])) {
     $nrp = null;
 }
 require_once('class/mahasiswa.php');
+require_once('class/jadwal.php');
+require_once('class/jamkuliah.php');
+$objJamkuliah = new jamkuliah();
+$objJadwal = new Jadwal();
 $objMahasiswa = new mahasiswa();
 ?>
 <!DOCTYPE html>
@@ -38,27 +42,40 @@ $objMahasiswa = new mahasiswa();
             <th>Jumat</th>
             <th>Sabtu</th>
             <?php
-            for ($i = 1; $i < 9; $i++) {
-                echo "<tr><td>jam</td>";
-                for ($x = 1; $x < 8; $x++){
-                    echo "<td><input type='checkbox' name='chk.$i.$x' value='$i.$x'></td>";
+        $arr = array(
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,),
+            array(false, false, false, false, false, false, false,)
+        );
+        $res2 = $objJadwal->getJadwal($nrp);
+        $res3 = $objJamkuliah->getJam();
+        while ($row = $res2->fetch_assoc()) {
+            $arr[$row['idjam_kuliah'] - 1][$row['idhari'] - 1] = true;
+        }
+        $i = 0;
+        while ($row2 = $res3->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row2["jam_mulai"] . "-" . $row2["jam_selesai"] . "</td>";
+            for ($j = 0; $j <= 6; $j++) {
+                if ($arr[$i][$j] == true) {
+                    echo "<td><input type='checkbox' name='chk.$i.$j' value='$i.$j' checked></td>";
+                } else {
+                    echo "<td><input type='checkbox' name='chk.$i.$j' value='$i.$j'></td>";
                 }
-                echo "</tr>";
             }
-            // while($baris = $res2->fetch_assoc()) {
-            //     $start = $baris['jam_start'];
-            //     $end = $baris['jam_end'];
-            //     echo "<tr><td>.$start-$end.<td>";
-            //     echo "<td></td>";
-            //     echo "<td></td>";
-            //     echo "<td></td>";
-            //     echo "<td></td>";
-            //     echo "<td></td>";
-            //     echo "<td></td>";
-            //     echo "<td></td>";
-            //     echo "<td></td></tr>";
-            // }
-            ?>
+            echo "</tr>";
+            $i++;
+        }
+        ?>
         </table>
     </form><br>
     <form method="post" action="index.php">
