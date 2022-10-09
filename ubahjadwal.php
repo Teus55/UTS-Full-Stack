@@ -68,9 +68,9 @@ $objMahasiswa = new mahasiswa();
             echo "<td>" . $row2["jam_mulai"] . "-" . $row2["jam_selesai"] . "</td>";
             for ($j = 0; $j <= 6; $j++) {
                 if ($arr[$i][$j] == true) {
-                    echo "<td><input type='checkbox' name='chk[$i][$j]' value='$i.$j' checked></td>";
+                    echo "<td><input type='checkbox' name='chk[]' value='$i.$j' checked></td>";
                 } else {
-                    echo "<td><input type='checkbox' name='chk[$i][$j]' value='$i.$j'></td>";
+                    echo "<td><input type='checkbox' name='chk[]' value='$i.$j'></td>";
                 }
             }
             echo "</tr>";
