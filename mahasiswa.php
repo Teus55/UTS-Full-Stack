@@ -8,9 +8,18 @@ class mahasiswa extends orangtua
         parent::__construct();
     }
 
-    public function getMahasiswa()
+    public function getMahasiswa($nrp = null)
     {
-        $stmt = $this->mysqli->query("SELECT * FROM mahasiswa");
-        return $stmt;
+        if ($nrp == null) {
+            $stmt = $this->mysqli->query("SELECT * FROM mahasiswa");
+            return $stmt;
+        } else {
+            $sql = "SELECT * FROM mahasiswa WHERE nrp = ?";
+            $stmt = $this->mysqli->prepare($sql);
+            $stmt->bind_param("i", $nrp);
+            $stmt->execute();
+            $res = $stmt->get_result();
+            return $res;
+        }
     }
 }
