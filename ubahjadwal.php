@@ -23,6 +23,7 @@ $objMahasiswa = new mahasiswa();
 
 <body>
     <form method="post" action="ubahjadwal_proses.php">
+        <input type="hidden" name="nrp" <?php echo "value='".$nrp."'";?>>
         <p><label for=""> Mahasiswa : 
             <?php                 
             $res = $objMahasiswa->getMahasiswa($nrp);
