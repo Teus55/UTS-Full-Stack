@@ -21,7 +21,7 @@ $objMahasiswa = new mahasiswa();
     <form method="post">
         <p><label for=""> Mahasiswa : 
             <?php                 
-            $res = $objMahasiswa->getMahasiswa();
+            $res = $objMahasiswa->getMahasiswa($nrp);
             $row = $res->fetch_assoc();
             echo $row['nrp']." - ".$row['nama'];
             ?>
@@ -41,7 +41,7 @@ $objMahasiswa = new mahasiswa();
             for ($i = 1; $i < 9; $i++) {
                 echo "<tr><td>jam</td>";
                 for ($x = 1; $x < 8; $x++){
-                    echo "<td><input type='checkbox' name='chk.$i.$x' value='$i.$x' disabled></td>";
+                    echo "<td><input type='checkbox' name='chk.$i.$x' value='$i.$x'></td>";
                 }
                 echo "</tr>";
             }
