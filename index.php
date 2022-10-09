@@ -76,7 +76,7 @@ if (isset($_POST['btnsubmit'])) {
             echo "<td>" . $row2["jam_mulai"] . "-" . $row2["jam_selesai"] . "</td>";
             for ($j = 0; $j <= 6; $j++) {
                 if ($arr[$i][$j] == true) {
-                    echo "<td>test</td>";
+                    echo "<td style='text-align:center'>&#9989</td>";
                 } else {
                     echo "<td></td>";
                 }
