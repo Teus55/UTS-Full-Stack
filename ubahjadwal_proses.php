@@ -12,7 +12,7 @@ if (isset($_POST['btnsimpan'])) {
                 $jam = (explode(".", $chk)[0]) + 1;
                 $hari = (explode(".", $chk)[1]) + 1;
                 $res = $objJadwal->insertJadwal($nrp, $jam, $hari);
-                header("location:index.php");
+                header("location:index.php?nrp=" . $nrp);
             }
         }
     }
