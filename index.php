@@ -12,11 +12,12 @@ if (isset($_POST['btnsubmit'])) {
 } else {
     $nrp = null;
 }
-
 if (isset($_GET['error'])) {
     $message = "Tolong Pilih Mahasiswa!";
     echo "<script type='text/javascript'>alert('$message');</script>";
 }
+
+
 
 ?>
 <!DOCTYPE html>
@@ -31,7 +32,7 @@ if (isset($_GET['error'])) {
 </head>
 
 <body>
-    <form method="post">
+    <form method="post" action="index.php">
         <p><label for="">Mahasiswa : </label>
             <select id="selMahasiswa" name="selMahasiswa">
                 <option>--Pilih Mahasiswa--</option>
