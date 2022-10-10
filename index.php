@@ -7,9 +7,12 @@ $objJamkuliah = new jamkuliah();
 $objJadwal = new Jadwal();
 if (isset($_POST['btnsubmit'])) {
     $nrp = $_POST['selMahasiswa'];
+} elseif (isset($_GET['nrp'])){
+    $nrp = $_GET['nrp'];
 } else {
     $nrp = null;
 }
+
 if (isset($_GET['error'])) {
     $message = "Tolong Pilih Mahasiswa!";
     echo "<script type='text/javascript'>alert('$message');</script>";
