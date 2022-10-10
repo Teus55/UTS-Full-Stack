@@ -10,6 +10,10 @@ if (isset($_POST['btnsubmit'])) {
 } else {
     $nrp = null;
 }
+if (isset($_GET['error'])) {
+    $message = "Tolong Pilih Mahasiswa!";
+    echo "<script type='text/javascript'>alert('$message');</script>";
+}
 
 ?>
 <!DOCTYPE html>
