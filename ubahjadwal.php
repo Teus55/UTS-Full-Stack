@@ -1,8 +1,12 @@
-<?php 
-if (isset($_GET['nrp'])) {
+<?php
+if ((isset($_GET['nrp'])) && (is_numeric($_GET['nrp']))) {
     $nrp = $_GET['nrp'];
-} else {
-    $nrp = null;
+} else{
+    header("location:index.php?error=1");
+}
+if (isset($_GET['error'])) {
+    $message = "Tolong Masukkan Jadwal Kuliah!";
+    echo "<script type='text/javascript'>alert('$message');</script>";
 }
 require_once('class/mahasiswa.php');
 require_once('class/jadwal.php');
@@ -23,15 +27,15 @@ $objMahasiswa = new mahasiswa();
 
 <body>
     <form method="post" action="ubahjadwal_proses.php">
-        <input type="hidden" name="nrp" <?php echo "value='".$nrp."'";?>>
-        <p><label for=""> Mahasiswa : 
-            <?php                 
-            $res = $objMahasiswa->getMahasiswa($nrp);
-            $row = $res->fetch_assoc();
-            echo $row['nrp']." - ".$row['nama'];
-            ?>
-        </label>
-            
+        <input type="hidden" name="nrp" <?php echo "value='" . $nrp . "'"; ?>>
+        <p><label for=""> Mahasiswa :
+                <?php
+                $res = $objMahasiswa->getMahasiswa($nrp);
+                $row = $res->fetch_assoc();
+                echo $row['nrp'] . " - " . $row['nama'];
+                ?>
+            </label>
+
         </p>
         <table border="1" style="min-width: 500px; max-width: 1000px;">
             <th>jam</th>
@@ -43,40 +47,40 @@ $objMahasiswa = new mahasiswa();
             <th>Jumat</th>
             <th>Sabtu</th>
             <?php
-        $arr = array(
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,),
-            array(false, false, false, false, false, false, false,)
-        );
-        $res2 = $objJadwal->getJadwal($nrp);
-        $res3 = $objJamkuliah->getJam();
-        while ($row = $res2->fetch_assoc()) {
-            $arr[$row['idjam_kuliah'] - 1][$row['idhari'] - 1] = true;
-        }
-        $i = 0;
-        while ($row2 = $res3->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row2["jam_mulai"] . "-" . $row2["jam_selesai"] . "</td>";
-            for ($j = 0; $j <= 6; $j++) {
-                if ($arr[$i][$j] == true) {
-                    echo "<td><input type='checkbox' name='chk[]' value='$i.$j' checked></td>";
-                } else {
-                    echo "<td><input type='checkbox' name='chk[]' value='$i.$j'></td>";
-                }
+            $arr = array(
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,),
+                array(false, false, false, false, false, false, false,)
+            );
+            $res2 = $objJadwal->getJadwal($nrp);
+            $res3 = $objJamkuliah->getJam();
+            while ($row = $res2->fetch_assoc()) {
+                $arr[$row['idjam_kuliah'] - 1][$row['idhari'] - 1] = true;
             }
-            echo "</tr>";
-            $i++;
-        }
-        ?>
+            $i = 0;
+            while ($row2 = $res3->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row2["jam_mulai"] . "-" . $row2["jam_selesai"] . "</td>";
+                for ($j = 0; $j <= 6; $j++) {
+                    if ($arr[$i][$j] == true) {
+                        echo "<td><input type='checkbox' name='chk[]' value='$i.$j' checked></td>";
+                    } else {
+                        echo "<td><input type='checkbox' name='chk[]' value='$i.$j'></td>";
+                    }
+                }
+                echo "</tr>";
+                $i++;
+            }
+            ?>
         </table><br>
         <input type="submit" name="btnsimpan" value="simpan">
     </form><br>
